@@ -6,32 +6,28 @@
 #    By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/25 16:46:08 by framos-p          #+#    #+#              #
-#    Updated: 2022/10/11 14:48:31 by framos-p         ###   ########.fr        #
+#    Updated: 2022/10/11 15:10:32 by framos-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SERVER			=	srcs/server.c
-
-CLIENT			=	srcs/client.c
+SERVER			=	server
+CLIENT			=	client
 
 MyLib_DIR		=	lib/LIBFT
 MyLib			=	$(MyLib_DIR)/libft.a
 MyPrintf_DIR	=	lib/Printf
 MyPrintf		=	$(MyPrintf_DIR)/libftprintf.a
 
-OBJS_DIR		=	objs/
-CLIENT_SRCS		=	$(CLIENT)
-CLIENT_OBJS		=	$(CLIENT_SRCS:.c=.o)
-SERVER_SRCS		=	$(SERVER)
-SERVER_OBJS		=	$(SERVER_SRCS:.c=.o)
-OBJS			=	$(CLIENT_OBJS) $(SERVER_OBJS)
+SRCS			=	srcs/
+
+CLIENT_SRCS		=	$(SRCS)client.c
+CLIENT_OBJS		=	$(SRCS)client.o
+
+SERVER_SRCS		=	$(SRCS)server.c
+SERVER_OBJS		=	$(SRCS)server.o
 CC				=	gcc
 CFLAGS			=	-g -Wall -Wextra -Werror
 RM 				=	rm -rf
-AR				=	ar rcs
-
-SERVER_NAME		=	server
-CLIENT_NAME		=	client
 
 # Colors
 
@@ -42,8 +38,8 @@ YELLOW 		=	\033[0;93m
 BLUE 		=	\033[0;94m
 
 
-%.o:%.c
-	$({CC) $(FLAGS) -c $< -o $@
+$(SRCS)%.o:$(SRCS)%.c
+	$(CC) $(FLAGS) -c $< -o $@
 
 all: server client
 
@@ -54,11 +50,11 @@ PRINTF:
 	@make -sC $(MyPrintf_DIR)
 
 server: LIBFT PRINTF $(SERVER_OBJS)
-	@$(CC) $(FLAGS) $(SERVER) $(MyLib) $(MyPrintf) -o $(SERVER_NAME)
+	@$(CC) $(FLAGS) $(SERVER_OBJS) $(MyLib) $(MyPrintf) -o $(SERVER)
 	@echo "\n📥 $(BOLD_CYAN)Server ready!\n"
 
 client: LIBFT PRINTF $(CLIENT_OBJS)
-	#@$(CC) $(FLAGS) $(CLIENT_OBJS) $(MyLib) $(MyPrintf) -o $(CLIENT_NAME)
+	@$(CC) $(FLAGS) $(CLIENT_OBJS) $(MyLib) $(MyPrintf) -o $(CLIENT)
 	@echo "\n📟 $(BOLD_PURPLE)Client ready!\n"
 
 clean:
@@ -68,7 +64,7 @@ clean:
 	@echo "\n💧 $(YELLOW)Clean: $(RED)Removed all the \".o\" files \n"
 
 fclean: clean
-	@$(RM) $(SERVER_NAME) $(CLIENT_NAME)
+	@$(RM) $(SERVER) $(CLIENT)
 	@make fclean -sC $(MyLib_DIR) 
 	@make fclean -sC $(MyPrintf_DIR)
 	@echo "\n🧼 $(YELLOW)Fclean: $(BLUE)Removed the executables \n"
