@@ -6,7 +6,7 @@
 #    By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/25 16:46:08 by framos-p          #+#    #+#              #
-#    Updated: 2022/10/11 13:57:47 by framos-p         ###   ########.fr        #
+#    Updated: 2022/10/11 14:48:31 by framos-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,10 +48,10 @@ BLUE 		=	\033[0;94m
 all: server client
 
 LIBFT:
-	@make -C $(MyLib_DIR)
+	@make -sC $(MyLib_DIR)
 
 PRINTF:
-	@make -C $(MyPrintf_DIR)
+	@make -sC $(MyPrintf_DIR)
 
 server: LIBFT PRINTF $(SERVER_OBJS)
 	@$(CC) $(FLAGS) $(SERVER) $(MyLib) $(MyPrintf) -o $(SERVER_NAME)
@@ -63,14 +63,14 @@ client: LIBFT PRINTF $(CLIENT_OBJS)
 
 clean:
 	@${RM} $(OBJS)
-	@$(MAKE) clean -sC $(MyLib_DIR) 
-	@$(MAKE) clean -sC $(MyPrintf_DIR)
+	@make clean -sC $(MyLib_DIR) 
+	@make clean -sC $(MyPrintf_DIR)
 	@echo "\n💧 $(YELLOW)Clean: $(RED)Removed all the \".o\" files \n"
 
 fclean: clean
 	@$(RM) $(SERVER_NAME) $(CLIENT_NAME)
-	@$(MAKE) fclean -sC $(MyLib_DIR) 
-	@$(MAKE) fclean -sC $(MyPrintf_DIR)
+	@make fclean -sC $(MyLib_DIR) 
+	@make fclean -sC $(MyPrintf_DIR)
 	@echo "\n🧼 $(YELLOW)Fclean: $(BLUE)Removed the executables \n"
 
 re:	fclean all
