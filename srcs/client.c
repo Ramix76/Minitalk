@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 12:37:58 by framos-p          #+#    #+#             */
-/*   Updated: 2022/10/11 14:11:12 by framos-p         ###   ########.fr       */
+/*   Updated: 2022/10/12 19:09:27 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,32 +16,43 @@
 #include <signal.h>
 #include <stdio.h>
 
-
-void	sending(int sig, siginfo_t *info, void *uap)
+/*void	sending(int sig, siginfo_t *info, void *uap)
 {
-	int	pid;
+}*/
+void	send_byte(char byte, int pid)
+{
+	int			i;
+	int			kill_response;
+	int			signal;
 
-	(void)info;
-	(void)uap;
-	if (sig == SIGUSR1)
-		kill(pid, SIGUSR1);
-	if (sig == SIGUSR2)
-		kill(pid, SIGUSR2);
+	i = 0;
+	while (i < 8)
+	{
+		if (byte & 0x80)
+			signal = SIGUSR2;
+		else
+			signal = SIGUSR1;
+		kill_response = kill(pid, signal);
+		usleep(300);
+		byte <<= 1;
+		i++;
+	}
 }
-
 int	main(int argc, char **argv)
 {
 	int	server_pid;
-	struct sigaction	signal;
+	int	i;
 
 	if (argc == 3)
 	{
-		signal.sa_sigaction = sending;
-		signal.sa_flags = SA_SIGINFO;
-		sigaction(SIGUSR1, &signal, NULL);
-		server_pid = ft_atoi(argc[1]);
-		while (1)
-			pause();
+		server_pid = ft_atoi(argv[1]);
+		i = 0;
+		while (argv[2][i])
+		{
+			send_byte(argv[2][i], server_pid);
+			i++;
+		}
+	send_byte(argv[2][i], server_pid);
 	}
 	return (0);
 }
