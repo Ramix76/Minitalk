@@ -6,7 +6,7 @@
 #    By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/25 16:46:08 by framos-p          #+#    #+#              #
-#    Updated: 2022/10/11 15:10:32 by framos-p         ###   ########.fr        #
+#    Updated: 2022/10/13 19:05:43 by framos-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ CLIENT_OBJS		=	$(SRCS)client.o
 SERVER_SRCS		=	$(SRCS)server.c
 SERVER_OBJS		=	$(SRCS)server.o
 CC				=	gcc
-CFLAGS			=	-g -Wall -Wextra -Werror
+FLAGS			=	-g -Wall -Wextra -Werror
 RM 				=	rm -rf
 
 # Colors
@@ -58,7 +58,7 @@ client: LIBFT PRINTF $(CLIENT_OBJS)
 	@echo "\n📟 $(BOLD_PURPLE)Client ready!\n"
 
 clean:
-	@${RM} $(OBJS)
+	@${RM} $(SERVER_OBJS) $(CLIENT_OBJS)
 	@make clean -sC $(MyLib_DIR) 
 	@make clean -sC $(MyPrintf_DIR)
 	@echo "\n💧 $(YELLOW)Clean: $(RED)Removed all the \".o\" files \n"

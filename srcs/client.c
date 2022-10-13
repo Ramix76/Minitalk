@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 12:37:58 by framos-p          #+#    #+#             */
-/*   Updated: 2022/10/12 19:09:27 by framos-p         ###   ########.fr       */
+/*   Updated: 2022/10/13 17:05:28 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	main(int argc, char **argv)
 			send_byte(argv[2][i], server_pid);
 			i++;
 		}
-	send_byte(argv[2][i], server_pid);
+	send_byte('\0', server_pid);
 	}
 	return (0);
 }
