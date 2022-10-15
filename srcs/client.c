@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 12:37:58 by framos-p          #+#    #+#             */
-/*   Updated: 2022/10/13 17:05:28 by framos-p         ###   ########.fr       */
+/*   Updated: 2022/10/15 12:26:44 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@
 #include <signal.h>
 #include <stdio.h>
 
-/*void	sending(int sig, siginfo_t *info, void *uap)
-{
-}*/
+//void	sending(int sig, siginfo_t *info, void *uap)
+
 void	send_byte(char byte, int pid)
 {
 	int			i;
 	int			kill_response;
 	int			signal;
+	static int	num_bytes;
 
 	i = 0;
 	while (i < 8)
@@ -33,11 +33,29 @@ void	send_byte(char byte, int pid)
 		else
 			signal = SIGUSR1;
 		kill_response = kill(pid, signal);
+		if (kill_response < 0)
+		{
+			ft_putstr_fd("Signal error", 2);
+			exit(-1);
+		}
 		usleep(300);
 		byte <<= 1;
 		i++;
 	}
+	num_bytes++;
+	ft_printf("\r\e[1;34mSending [%d] bytes\e[0m", num_bytes);
 }
+
+int	send_string(char *str, int server_pid)
+{
+	int	size;
+
+	size = ft_strlen (str);
+	while (*str)
+		send_byte(*(str++), server_pid);
+	return (size);
+}
+
 int	main(int argc, char **argv)
 {
 	int	server_pid;
@@ -52,7 +70,10 @@ int	main(int argc, char **argv)
 			send_byte(argv[2][i], server_pid);
 			i++;
 		}
-	send_byte('\0', server_pid);
+		send_byte('\0', server_pid);
 	}
+	else
+		ft_putstr_fd("Invalid number of arguments", 2);
+	write(1, "\n", 1);
 	return (0);
 }

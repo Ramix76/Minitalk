@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 18:50:20 by framos-p          #+#    #+#             */
-/*   Updated: 2022/10/14 12:09:21 by framos-p         ###   ########.fr       */
+/*   Updated: 2022/10/15 12:19:53 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,44 +16,36 @@
 #include <signal.h>
 #include <stdio.h>
 
-int		num_bit;
+int		g_num_bit;
+
+//	static pid_t			client_pid;
+//	client_pid = 0;
+//	if (client_pid != info->si_pid && info->si_pid != 0)
+//		client_pid = info->si_pid;
 
 static void	sig_action(int sig, siginfo_t *info, void *context)
 {
-//	static pid_t			client_pid;
 	static unsigned char	byte;
 
-//	client_pid = 0;
 	(void)info;
 	(void)context;
-//	if (client_pid != info->si_pid && info->si_pid != 0)
-//		client_pid = info->si_pid;
 	if (sig == SIGUSR2)
-	{
 		byte |= 1;
-	//	ft_printf("valor:%d\n", byte);
-	}
-	num_bit++;
-	if (num_bit == 8)
+	g_num_bit++;
+	if (g_num_bit == 8)
 	{	
 		ft_putchar_fd(byte, 1);
-		num_bit = 0;
+		g_num_bit = 0;
 	}
 	byte <<= 1;
 }
 
-/*	if (sig == SIGUSR1)
-		ft_printf("0\n");
-	if (sig == SIGUSR2)
-		ft_printf("1\n");
-*/
-
-int main()
+int	main(void)
 {
-	int pid;
+	int					pid;
+	struct sigaction	signal;
 
-	num_bit = 0;
-	struct sigaction signal;
+	g_num_bit = 0;
 	pid = getpid();
 	ft_printf("PID: %d\n", pid);
 	signal.sa_sigaction = sig_action;
