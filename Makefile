@@ -6,7 +6,7 @@
 #    By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/25 16:46:08 by framos-p          #+#    #+#              #
-#    Updated: 2022/10/13 19:05:43 by framos-p         ###   ########.fr        #
+#    Updated: 2022/10/17 16:43:24 by framos-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,24 +38,28 @@ YELLOW 		=	\033[0;93m
 BLUE 		=	\033[0;94m
 
 
-$(SRCS)%.o:$(SRCS)%.c
+$(SRCS)%.o: $(SRCS)%.c Makefile
 	$(CC) $(FLAGS) -c $< -o $@
 
-all: server client
+all:
+	@$(MAKE) -sC $(MyLib_DIR)
+	@$(MAKE) -sC $(MyPrintf_DIR)
+	@$(MAKE) $(SERVER)
+	@$(MAKE) $(CLIENT)
 
-LIBFT:
-	@make -sC $(MyLib_DIR)
-
-PRINTF:
-	@make -sC $(MyPrintf_DIR)
-
-server: LIBFT PRINTF $(SERVER_OBJS)
+$(SERVER):: $(SERVER_OBJS)
 	@$(CC) $(FLAGS) $(SERVER_OBJS) $(MyLib) $(MyPrintf) -o $(SERVER)
 	@echo "\n📥 $(BOLD_CYAN)Server ready!\n"
 
-client: LIBFT PRINTF $(CLIENT_OBJS)
+$(SERVER)::
+	@echo "\n\t$(RED)$@ is up to date"
+
+$(CLIENT):: $(CLIENT_OBJS)
 	@$(CC) $(FLAGS) $(CLIENT_OBJS) $(MyLib) $(MyPrintf) -o $(CLIENT)
 	@echo "\n📟 $(BOLD_PURPLE)Client ready!\n"
+
+$(CLIENT)::
+	@echo "\n\t$(RED)$@ is up to date"
 
 clean:
 	@${RM} $(SERVER_OBJS) $(CLIENT_OBJS)
