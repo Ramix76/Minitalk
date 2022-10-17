@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 18:50:20 by framos-p          #+#    #+#             */
-/*   Updated: 2022/10/15 12:19:53 by framos-p         ###   ########.fr       */
+/*   Updated: 2022/10/17 11:38:07 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,6 @@
 #include <stdio.h>
 
 int		g_num_bit;
-
-//	static pid_t			client_pid;
-//	client_pid = 0;
-//	if (client_pid != info->si_pid && info->si_pid != 0)
-//		client_pid = info->si_pid;
 
 static void	sig_action(int sig, siginfo_t *info, void *context)
 {

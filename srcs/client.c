@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 12:37:58 by framos-p          #+#    #+#             */
-/*   Updated: 2022/10/15 12:26:44 by framos-p         ###   ########.fr       */
+/*   Updated: 2022/10/17 11:37:53 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,6 @@ void	send_byte(char byte, int pid)
 	}
 	num_bytes++;
 	ft_printf("\r\e[1;34mSending [%d] bytes\e[0m", num_bytes);
-}
-
-int	send_string(char *str, int server_pid)
-{
-	int	size;
-
-	size = ft_strlen (str);
-	while (*str)
-		send_byte(*(str++), server_pid);
-	return (size);
 }
 
 int	main(int argc, char **argv)
