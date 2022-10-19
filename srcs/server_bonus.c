@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   server_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/03 18:50:20 by framos-p          #+#    #+#             */
-/*   Updated: 2022/10/19 18:11:28 by framos-p         ###   ########.fr       */
+/*   Created: 2022/10/19 12:34:40 by framos-p          #+#    #+#             */
+/*   Updated: 2022/10/19 12:35:28 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,21 @@ static void	sig_action(int sig, siginfo_t *info, void *context)
 {
 	static unsigned char	byte;
 
-	(void)info;
 	(void)context;
+	usleep(100);
+	if (sig == SIGUSR1)
+		kill(info->si_pid, SIGUSR1);
 	if (sig == SIGUSR2)
+	{
 		byte |= 1;
+		kill(info->si_pid, SIGUSR1);
+	}
 	g_num_bit++;
 	if (g_num_bit == 8)
 	{	
 		ft_putchar_fd(byte, 1);
+		if (byte == '\0')
+			kill(info->si_pid, SIGUSR2);
 		g_num_bit = 0;
 	}
 	byte <<= 1;
