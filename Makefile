@@ -6,7 +6,7 @@
 #    By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/25 16:46:08 by framos-p          #+#    #+#              #
-#    Updated: 2022/10/19 14:43:40 by framos-p         ###   ########.fr        #
+#    Updated: 2022/10/20 18:08:34 by framos-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,15 +40,16 @@ RM 				=	rm -rf
 
 # Colors
 
+NOCOLOR		=	\033[0m
 BOLD_PURPLE	=	\033[1;35m
 BOLD_CYAN	=	\033[1;36m
 RED 		=	\033[0;91m
-YELLOW 		=	\033[0;93m
+YELLOW 		=	\033[5;93m
 BLUE 		=	\033[0;94m
-
+GREEN		=	\033[5;32m
 
 $(SRCS)%.o: $(SRCS)%.c Makefile
-	$(CC) $(FLAGS) -c $< -o $@
+	@$(CC) $(FLAGS) -c $< -o $@
 
 all:
 	@$(MAKE) -sC $(MyLib_DIR)
@@ -64,43 +65,43 @@ bonus:
 
 $(SERVER):: $(SERVER_OBJS)
 	@$(CC) $(FLAGS) $(SERVER_OBJS) $(MyLib) $(MyPrintf) -o $(SERVER)
-	@echo "\n📥 $(BOLD_CYAN)Server ready!\n"
+	@echo "\n📥 $(BOLD_CYAN)Server ready!$(NOCOLOR)"
 
 $(SERVER)::
-	@echo "\n\t$(RED)$@ is up to date"
+	@echo "\n$(GREEN).........$@ is up to date........👍$(NOCOLOR)"
 
 $(CLIENT):: $(CLIENT_OBJS)
 	@$(CC) $(FLAGS) $(CLIENT_OBJS) $(MyLib) $(MyPrintf) -o $(CLIENT)
-	@echo "\n📟 $(BOLD_PURPLE)Client ready!\n"
+	@echo "\n📟 $(BOLD_PURPLE)Client ready!$(NOCOLOR)"
 
 $(CLIENT)::
-	@echo "\n\t$(RED)$@ is up to date"
+	@echo "\n$(GREEN)........$@ is up to date.......👍$(NOCOLOR)"
 
 $(SERVER_BONUS):: $(SERVER_BONUS_OBJS)
 	@$(CC) $(FLAGS) $(SERVER_BONUS_OBJS) $(MyLib) $(MyPrintf) -o $(SERVER_BONUS)
-	@echo "\n📥 $(BOLD_CYAN)Server_Bonus ready!\n"
+	@echo "\n📥 $(BOLD_CYAN)Server_Bonus ready!$(NOCOLOR)"
 
 $(CLIENT_BONUS):: $(CLIENT_BONUS_OBJS)
 	@$(CC) $(FLAGS) $(CLIENT_BONUS_OBJS) $(MyLib) $(MyPrintf) -o $(CLIENT_BONUS)
-	@echo "\n📥 $(BOLD_CYAN)Client_Bonus ready!\n"
+	@echo "\n📥 $(BOLD_CYAN)Client_Bonus ready!$(NOCOLOR)"
 
 $(SERVER_BONUS)::
-	@echo "\n\t$(YELLOW)$@ is up to date"
+	@echo "\n$(YELLOW)........$@ is up to date........👍$(NOCOLOR)"
 
 $(CLIENT_BONUS)::
-	@echo "\n\t$(YELLOW)$@ is up to date"
+	@echo "\n$(YELLOW)........$@ is up to date........👍$(NOCOLOR)"
 
 clean:
 	@${RM} $(SERVER_OBJS) $(CLIENT_OBJS) $(CLIENT_BONUS_OBJS) $(SERVER_BONUS_OBJS)
 	@make clean -sC $(MyLib_DIR) 
 	@make clean -sC $(MyPrintf_DIR)
-	@echo "\n💧 $(YELLOW)Clean: $(RED)Removed all the \".o\" files \n"
+	@echo "\n💧 $(YELLOW)Clean: $(RED)Removed all the \".o\" files \n$(NOCOLOR)"
 
 fclean: clean
 	@$(RM) $(SERVER) $(CLIENT) $(SERVER_BONUS) $(CLIENT_BONUS)
 	@make fclean -sC $(MyLib_DIR) 
 	@make fclean -sC $(MyPrintf_DIR)
-	@echo "\n🧼 $(YELLOW)Fclean: $(BLUE)Removed the executables \n"
+	@echo "\n🧼 $(YELLOW)Fclean: $(BLUE)Removed the executables \n$(NOCOLOR)"
 
 re:	fclean all
 

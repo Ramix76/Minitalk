@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 12:34:40 by framos-p          #+#    #+#             */
-/*   Updated: 2022/10/19 12:35:28 by framos-p         ###   ########.fr       */
+/*   Updated: 2022/10/20 19:13:19 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,21 @@ static void	sig_action(int sig, siginfo_t *info, void *context)
 	(void)context;
 	usleep(100);
 	if (sig == SIGUSR1)
-		kill(info->si_pid, SIGUSR1);
+		if (kill(info->si_pid, SIGUSR1) == -1)
+			exit (-1);
 	if (sig == SIGUSR2)
 	{
 		byte |= 1;
-		kill(info->si_pid, SIGUSR1);
+		if (kill(info->si_pid, SIGUSR1) == -1)
+			exit (-1);
 	}
 	g_num_bit++;
 	if (g_num_bit == 8)
 	{	
 		ft_putchar_fd(byte, 1);
 		if (byte == '\0')
-			kill(info->si_pid, SIGUSR2);
+			if (kill(info->si_pid, SIGUSR2) == -1)
+				exit (-1);
 		g_num_bit = 0;
 	}
 	byte <<= 1;

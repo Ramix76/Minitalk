@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 12:35:39 by framos-p          #+#    #+#             */
-/*   Updated: 2022/10/19 18:16:01 by framos-p         ###   ########.fr       */
+/*   Updated: 2022/10/20 19:06:28 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	send_byte(char byte, int pid)
 		else
 			signal = SIGUSR1;
 		kill_response = kill(pid, signal);
-//		pause();
 		usleep(200);
 		if (kill_response < 0)
 		{
