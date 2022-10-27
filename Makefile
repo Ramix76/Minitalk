@@ -6,7 +6,7 @@
 #    By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/25 16:46:08 by framos-p          #+#    #+#              #
-#    Updated: 2022/10/21 14:28:08 by framos-p         ###   ########.fr        #
+#    Updated: 2022/10/26 13:02:40 by framos-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,14 +65,14 @@ bonus:
 
 $(SERVER):: $(SERVER_OBJS)
 	@$(CC) $(FLAGS) $(SERVER_OBJS) $(MyLib) $(MyPrintf) -o $(SERVER)
-	@echo "\n📥 $(BOLD_CYAN)Server ready!$(NOCOLOR)"
+	@echo "\n📟 $(BOLD_CYAN)Server ready!$(NOCOLOR)"
 
 $(SERVER)::
 	@echo "\n$(GREEN).........$@ is up to date........👍$(NOCOLOR)"
 
 $(CLIENT):: $(CLIENT_OBJS)
 	@$(CC) $(FLAGS) $(CLIENT_OBJS) $(MyLib) $(MyPrintf) -o $(CLIENT)
-	@echo "\n📟 $(BOLD_PURPLE)Client ready!$(NOCOLOR)"
+	@echo "\n📡 $(BOLD_PURPLE)Client ready!$(NOCOLOR)"
 
 $(CLIENT)::
 	@echo "\n$(GREEN)........$@ is up to date.......👍$(NOCOLOR)"
@@ -95,13 +95,13 @@ clean:
 	@${RM} $(SERVER_OBJS) $(CLIENT_OBJS) $(CLIENT_BONUS_OBJS) $(SERVER_BONUS_OBJS)
 	@make clean -sC $(MyLib_DIR) 
 	@make clean -sC $(MyPrintf_DIR)
-	@echo "\n💧 $(YELLOW)Clean: $(RED)Removed all the \".o\" files \n$(NOCOLOR)"
+	@echo "\n☑️ $(YELLOW)Clean: $(RED)Removed all the \".o\" files \n$(NOCOLOR)"
 
 fclean: clean
 	@$(RM) $(SERVER) $(CLIENT) $(SERVER_BONUS) $(CLIENT_BONUS)
 	@make fclean -sC $(MyLib_DIR) 
 	@make fclean -sC $(MyPrintf_DIR)
-	@echo "\n🧼 $(YELLOW)Fclean: $(BLUE)Removed the executables \n$(NOCOLOR)"
+	@echo "\n☑️ $(YELLOW)Fclean: $(BLUE)Removed the executables \n$(NOCOLOR)"
 
 re:	fclean all
 
