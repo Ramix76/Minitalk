@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 12:34:40 by framos-p          #+#    #+#             */
-/*   Updated: 2022/10/27 18:57:03 by framos-p         ###   ########.fr       */
+/*   Updated: 2022/11/09 16:12:55 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int	main(void)
 	int					pid;
 	struct sigaction	signal;
 
+	signal.sa_handler = 0;
+	signal.sa_mask = 0;
 	g_num_bit = 0;
 	pid = getpid();
 	if (ft_printf("PID: %d\n", pid) == -1)

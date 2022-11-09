@@ -6,7 +6,7 @@
 #    By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/21 14:24:13 by framos-p          #+#    #+#              #
-#    Updated: 2022/10/28 11:35:49 by framos-p         ###   ########.fr        #
+#    Updated: 2022/11/07 14:03:41 by framos-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,8 +61,7 @@ clean:
 
 fclean:	clean
 		@${RM} ${NAME} 
-		@echo "$(MAGENTA)🚽 Fcleaned ${NAME}!$(DEF_COLOR)"
-
+		@echo "$(MAGENTA)🚽 Cleaned ${NAME}$(DEF_COLOR)"
 re:		fclean all
 
 .PHONY: fclean, all, clean, re

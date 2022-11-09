@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 12:35:39 by framos-p          #+#    #+#             */
-/*   Updated: 2022/10/27 19:00:39 by framos-p         ###   ########.fr       */
+/*   Updated: 2022/11/09 16:16:40 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	action(int sig)
 		exit (-1);
 	if (sig == SIGUSR2)
 	{
-		if (ft_printf("\r\e[1;34mMessage finished at [%d] bits\e[0m", received) \
+		if (ft_printf("\r\e[1;34mMessage finished at [%d] bits\e[0m\n", received) \
 			== -1)
 			exit (-1);
 		exit (EXIT_SUCCESS);
