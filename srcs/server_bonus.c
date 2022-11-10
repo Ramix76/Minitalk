@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 12:34:40 by framos-p          #+#    #+#             */
-/*   Updated: 2022/11/09 16:12:55 by framos-p         ###   ########.fr       */
+/*   Updated: 2022/11/10 16:42:20 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,16 @@
 
 int		g_num_bit;
 
+int	server(void);
+
 static void	sig_action(int sig, siginfo_t *info, void *context)
 {
-	static unsigned char	byte;
+	static unsigned char	byte = 0;
 
 	(void)context;
 	usleep(100);
+	if (g_num_bit == 0)
+		byte = 0;
 	if (sig == SIGUSR1)
 		if (kill(info->si_pid, SIGUSR1) == -1)
 			exit (-1);
@@ -61,6 +65,24 @@ int	main(void)
 	sigaction(SIGUSR1, &signal, NULL);
 	sigaction(SIGUSR2, &signal, NULL);
 	while (1)
-		pause();
+		server();
+	return (0);
+}
+
+int	server(void)
+{
+	static int last;
+	
+	pause();
+	while (1)
+	{
+		last = g_num_bit;
+		usleep(2000);
+		if (g_num_bit == last)
+		{
+			g_num_bit = 0;
+			break;
+		}
+	}
 	return (0);
 }
