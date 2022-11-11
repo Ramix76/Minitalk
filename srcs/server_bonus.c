@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 12:34:40 by framos-p          #+#    #+#             */
-/*   Updated: 2022/11/10 16:42:20 by framos-p         ###   ########.fr       */
+/*   Updated: 2022/11/11 12:25:42 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ int	server(void)
 	while (1)
 	{
 		last = g_num_bit;
-		usleep(2000);
+		usleep(1000);
+		usleep(1000);
 		if (g_num_bit == last)
 		{
 			g_num_bit = 0;
