@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 12:37:58 by framos-p          #+#    #+#             */
-/*   Updated: 2022/11/09 17:33:40 by framos-p         ###   ########.fr       */
+/*   Updated: 2022/11/24 10:54:43 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	send_byte(char byte, int pid)
 		if (kill_response < 0)
 		{
 			ft_putstr_fd("Signal error", 2);
-			exit(-1);
+			exit(EXIT_FAILURE);
 		}
 		usleep(300);
 		byte <<= 1;

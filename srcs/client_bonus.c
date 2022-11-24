@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 12:35:39 by framos-p          #+#    #+#             */
-/*   Updated: 2022/11/09 16:16:40 by framos-p         ###   ########.fr       */
+/*   Updated: 2022/11/24 10:54:38 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ void	action(int sig)
 	if (sig == SIGUSR1)
 		++received;
 	if (ft_printf("\r\e[1;34mSending [%d] bits\e[0m", received) == -1)
-		exit (-1);
+		exit (EXIT_FAILURE);
 	if (sig == SIGUSR2)
 	{
 		if (ft_printf("\r\e[1;34mMessage finished at [%d] bits\e[0m\n", received) \
 			== -1)
-			exit (-1);
+			exit (EXIT_FAILURE);
 		exit (EXIT_SUCCESS);
 	}
 }
@@ -51,7 +51,7 @@ void	send_byte(char byte, int pid)
 		if (kill_response < 0)
 		{
 			ft_putstr_fd("Signal error", 2);
-			exit(-1);
+			exit(EXIT_FAILURE);
 		}
 		usleep(300);
 		byte <<= 1;
@@ -80,7 +80,7 @@ int	main(int argc, char **argv)
 	else
 	{
 		ft_putstr_fd("Invalid number of arguments", 2);
-		exit (-1);
+		exit (EXIT_FAILURE);
 	}
 	write(1, "\n", 1);
 	while (1)

@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 12:34:40 by framos-p          #+#    #+#             */
-/*   Updated: 2022/11/11 12:25:42 by framos-p         ###   ########.fr       */
+/*   Updated: 2022/11/24 10:56:44 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ static void	sig_action(int sig, siginfo_t *info, void *context)
 		byte = 0;
 	if (sig == SIGUSR1)
 		if (kill(info->si_pid, SIGUSR1) == -1)
-			exit (-1);
+			exit (EXIT_FAILURE);
 	if (sig == SIGUSR2)
 	{
 		byte |= 1;
 		if (kill(info->si_pid, SIGUSR1) == -1)
-			exit (-1);
+			exit (EXIT_FAILURE);
 	}
 	g_num_bit++;
 	if (g_num_bit == 8)
@@ -43,7 +43,7 @@ static void	sig_action(int sig, siginfo_t *info, void *context)
 		ft_putchar_fd(byte, 1);
 		if (byte == '\0')
 			if (kill(info->si_pid, SIGUSR2) == -1)
-				exit (-1);
+				exit (EXIT_FAILURE);
 		g_num_bit = 0;
 	}
 	byte <<= 1;
@@ -59,7 +59,7 @@ int	main(void)
 	g_num_bit = 0;
 	pid = getpid();
 	if (ft_printf("PID: %d\n", pid) == -1)
-		exit (-1);
+		return (0);
 	signal.sa_sigaction = sig_action;
 	signal.sa_flags = SA_RESTART;
 	sigaction(SIGUSR1, &signal, NULL);

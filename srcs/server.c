@@ -6,7 +6,7 @@
 /*   By: framos-p <framos-p@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 18:50:20 by framos-p          #+#    #+#             */
-/*   Updated: 2022/10/28 20:02:21 by framos-p         ###   ########.fr       */
+/*   Updated: 2022/11/24 10:55:29 by framos-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	main(void)
 	g_num_bit = 0;
 	pid = getpid();
 	if (ft_printf("PID: %d\n", pid) == -1)
-		exit (-1);
+		return (0);
 	signal.sa_sigaction = sig_action;
 	signal.sa_flags = SA_RESTART;
 	sigaction(SIGUSR1, &signal, NULL);
